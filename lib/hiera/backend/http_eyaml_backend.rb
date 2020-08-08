@@ -176,6 +176,9 @@ class Hiera
           end
 
           return answer
+        else
+          # if something else (eg Syck PrivateType) let it convert to String
+          return data.to_s
         end
       end
 

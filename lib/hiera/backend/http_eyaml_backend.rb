@@ -2,6 +2,7 @@ require 'hiera/backend/eyaml/encryptor'
 require 'hiera/backend/eyaml/utils'
 require 'hiera/backend/eyaml/options'
 require 'hiera/backend/eyaml/parser/parser'
+require 'syck'
 
 class Hiera
   module Backend
@@ -176,8 +177,11 @@ class Hiera
           end
 
           return answer
+        elsif data.is_a?(Syck::PrivateType)
+          # Get value from Syck PrivateType
+          parse_answer(data.value, scope, extra_data)
         else
-          # if something else (eg Syck PrivateType) let it convert to String
+          # parse as string as last resort
           return data.to_s
         end
       end

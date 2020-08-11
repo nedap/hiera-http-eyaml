@@ -177,24 +177,8 @@ class Hiera
 
           return answer
         else
-           # if something else (eg Syck PrivateType) let it convert to String first
-           stringValue = data.to_s
-           begin
-             # can we make an integer out of it?
-             answer = Integer(stringValue)
-           rescue
-             # is it a boolean value?
-             if stringValue.downcase == "true"
-               answer = true
-             elsif stringValue.downcase == "false"
-               answer = false
-             else
-               # fall back to string
-               # this is also fine for booleans
-               answer = stringValue
-             end
-           end
-           return answer
+          # if something else (eg Syck PrivateType) let it convert to String
+          return data.to_s
         end
       end
 
